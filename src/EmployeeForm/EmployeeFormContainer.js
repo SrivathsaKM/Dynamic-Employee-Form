@@ -2,18 +2,17 @@ import React from 'react';
 
 import EmployeeContactDetails from './EmployeeContactDetails';
 import EmployeeDate from './EmployeeDate';
-import EmployeeDesignation from './EmployeeDesignation';
-import EmployeeName from './EmployeeName';
 import EmployeeSkills from './EmployeeSkills';
+import EmployeeNameDesignation from './EmployeeNameDesignation';
 
-const EmployeeFormContainer = ({ id, handleFormDataChange }) => {
+const EmployeeFormContainer = ({ id, handleFormDataChange, formError }) => {
   return (
     <>
-      <EmployeeName handleFormDataChange={handleFormDataChange} id={id} />
-      <EmployeeDesignation handleFormDataChange={handleFormDataChange} id={id} />
-      <EmployeeContactDetails handleFormDataChange={handleFormDataChange} id={id} />
-      <EmployeeSkills handleFormDataChange={handleFormDataChange} id={id} />
-      <EmployeeDate handleFormDataChange={handleFormDataChange} id={id} />
+      <EmployeeNameDesignation value='name' handleFormDataChange={handleFormDataChange} id={id} formError={formError} />
+      <EmployeeNameDesignation value='designation' handleFormDataChange={handleFormDataChange} id={id} formError={formError} />
+      <EmployeeContactDetails handleFormDataChange={handleFormDataChange} id={id} formError={formError} />
+      <EmployeeSkills handleFormDataChange={handleFormDataChange} id={id} formError={formError} />
+      <EmployeeDate handleFormDataChange={handleFormDataChange} id={id} formError={formError} />
     </>
   );
 };

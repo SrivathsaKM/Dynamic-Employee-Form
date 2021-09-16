@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const EmployeeDate = ({ handleFormDataChange, id }) => {
+const EmployeeDate = ({ handleFormDataChange, id, formError }) => {
   const classes = useStyles();
   const handleDateChange = (e) => {
     handleFormDataChange(e.target.value, 'dateOfBirth', id);
@@ -38,6 +38,7 @@ const EmployeeDate = ({ handleFormDataChange, id }) => {
                 shrink: true,
               }}
             />
+            &ensp; {formError.dateOfBirth && <span style={{ color: 'red', textTransform: 'capitalize' }}>{formError.dateOfBirth}</span>}
           </form>
         </Grid>
       </Grid>

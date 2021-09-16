@@ -5,7 +5,7 @@ import { TextField, FormControl, NativeSelect, Typography, Grid } from '@materia
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-const EmployeeContactDetails = ({ id: employeeId, handleFormDataChange }) => {
+const EmployeeContactDetails = ({ id: employeeId, handleFormDataChange, formError }) => {
   const [selectType, setSelectType] = useState('');
   const [contact, setContact] = useState([{ id: uuidv4(), label: 'primary', details: '' }]);
 
@@ -13,7 +13,6 @@ const EmployeeContactDetails = ({ id: employeeId, handleFormDataChange }) => {
     const updatedContactDetail = contact.map((contactInfo) => {
       if (contactInfo.id === id) {
         contactInfo.details = e.target.value;
-        //contactInfo.label = selectType;
       }
       return contactInfo;
     });
@@ -82,6 +81,7 @@ const EmployeeContactDetails = ({ id: employeeId, handleFormDataChange }) => {
                     <Grid item xs={4}>
                       <TextField size='small' variant='outlined' type='number' onChange={(e) => handleContactNumberChange(e, id)} style={{ marginLeft: '.5rem' }} />
                     </Grid>
+                    &ensp; {formError.contactDetails && <span style={{ color: 'red', textTransform: 'capitalize' }}>{formError.contactDetails}</span>}
                     <Grid item xs={4}>
                       <DeleteIcon
                         variant='contained'

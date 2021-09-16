@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { TextField, Button, Typography, Grid } from '@material-ui/core';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 
-const EmployeeSkills = ({ id: employeeId, handleFormDataChange }) => {
+const EmployeeSkills = ({ id: employeeId, handleFormDataChange, formError }) => {
   const [employeeSkills, setEmployeeSkills] = useState([{ id: uuidv4(), details: '' }]);
 
   const handleEmployeeSkillsChange = (e, id) => {
@@ -43,6 +43,7 @@ const EmployeeSkills = ({ id: employeeId, handleFormDataChange }) => {
             return (
               <div key={id}>
                 <TextField size='small' variant='outlined' type='text' onChange={(e) => handleEmployeeSkillsChange(e, id)} />
+                &ensp; {formError.skills && <span style={{ color: 'red', textTransform: 'capitalize' }}>{formError.skills}</span>}
                 {employeeSkills.length > 1 && (
                   <Button
                     onClick={() => {

@@ -11,35 +11,53 @@ const App = () => {
   const data = { id: uuidv4(), name: '', designation: '', contactDetails: [], skills: [], dateOfBirth: '' };
   const [employeeFormData, setEmployeeFormData] = useState([data]);
   const [open, setOpen] = useState(false);
+  const [formError, setFormError] = useState({});
+  const error = {};
 
   const handleAddEmployeeForm = () => {
     setEmployeeFormData([...employeeFormData, data]);
   };
 
-  const handleFormDataChange = (employeeData, textField, employeeId) => {
+  const handleFormDataChange = (employeeData, textField, employeeId, skills) => {
     const updatedEmployeeFormData = employeeFormData.map((formData) => {
       if (formData.id === employeeId) {
         formData[textField] = employeeData;
       }
       return formData;
     });
-    console.log(updatedEmployeeFormData);
     setEmployeeFormData(updatedEmployeeFormData);
   };
 
-  const handleModalClose = () => {
-    const result = employeeFormData.every((employee) => {
+  const handleValidation = () => {
+    employeeFormData.map((employee) => {
       const { name, designation, contactDetails, skills, dateOfBirth } = employee;
-      let validate;
-      if (name.length > 0 && designation.length > 0 && contactDetails[0].details.length === 10 && skills[0].details.length > 0 && dateOfBirth) {
-        validate = true;
-      } else {
-        validate = false;
+      if (name.length === 0) {
+        error.name = 'Name  Required';
       }
-      return validate;
-    });
+      if (designation.length === 0) {
+        error.designation = 'Designation Required';
+      }
 
-    result ? setOpen(!open) : alert('All Fields are Mandatory');
+      if (!contactDetails.every((ele) => ele.details.length == 10) || contactDetails.length === 0) {
+        error.contactDetails = 'Contact Required (10 Digits)';
+      }
+      if (!skills.every((ele) => ele.details.length > 0)) {
+        error.skills = 'Skills is required';
+      }
+      if (dateOfBirth.length === 0) {
+        error.dateOfBirth = 'DOB required';
+      }
+    });
+  };
+
+  const handleModalClose = () => {
+    handleValidation();
+    if (Object.keys(error).length === 0) {
+      setFormError({});
+      setOpen(!open);
+    } else {
+      setFormError(error);
+    }
   };
 
   const handleRemoveEmployeeForm = (id) => {
@@ -81,7 +99,7 @@ const App = () => {
                       </Typography>
                     </Grid>
 
-                    <EmployeeFormContainer {...formData} key={idx} handleFormDataChange={handleFormDataChange} style={{ marginBottom: '10rem' }} />
+                    <EmployeeFormContainer {...formData} formError={formError} key={idx} handleFormDataChange={handleFormDataChange} style={{ marginBottom: '10rem' }} error={error} />
                   </Grid>
                 </div>
               );

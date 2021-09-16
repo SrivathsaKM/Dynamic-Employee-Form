@@ -61,6 +61,7 @@ const EmployeeContactDetails = ({ id: employeeId, handleFormDataChange, formErro
               <option value='emergency'>Emergency</option>
             </NativeSelect>
           </FormControl>
+          &ensp; {formError.contactDetails && <span style={{ color: 'red', textTransform: 'capitalize' }}>{formError.contactDetails}</span>}
         </Grid>
         {selectType.length > 0 && (
           <Grid item xs={4}>
@@ -81,7 +82,7 @@ const EmployeeContactDetails = ({ id: employeeId, handleFormDataChange, formErro
                     <Grid item xs={4}>
                       <TextField size='small' variant='outlined' type='number' onChange={(e) => handleContactNumberChange(e, id)} style={{ marginLeft: '.5rem' }} />
                     </Grid>
-                    &ensp; {formError.contactDetails && <span style={{ color: 'red', textTransform: 'capitalize' }}>{formError.contactDetails}</span>}
+
                     <Grid item xs={4}>
                       <DeleteIcon
                         variant='contained'
